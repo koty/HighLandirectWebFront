@@ -2,8 +2,10 @@
   <div id="app">
     <md-toolbar>
       <h1 class="md-title">HighLandirect</h1>
-      <md-button class="md-raised">ボタン</md-button>
+      <md-button class="md-raised">印刷！</md-button>
     </md-toolbar>
+    <md-button><router-link to="/">top</router-link></md-button>
+    <md-button><router-link to="/customers">顧客一覧</router-link></md-button>
     <!--img src="./assets/logo.png"-->
     <router-view></router-view>
   </div>
