@@ -8,7 +8,7 @@
       </md-input-container>
       <md-input-container>
         <label>氏名</label>
-        <md-input v-model="selected_row.name"></md-input>
+        <md-input @change="text_changed" v-model="selected_row.name"></md-input>
       </md-input-container>
       <md-input-container>
         <label>〒</label>
@@ -31,10 +31,18 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   export default {
     methods: {
+      text_changed (value) {
+        this.$store.commit('edit_customer', {value})
+      }
     },
-    props: ['selected_row']
+    computed: {
+      ...mapGetters({
+        selected_row: 'selected_row'
+      })
+    }
   }
 </script>
 

@@ -8,24 +8,31 @@
 
 <script>
   import CustomerDetail from '@/components/CustomerDetail'
-
+  // import { mapGetters } from 'vuex'
   export default {
+    created: function () {
+      this.$on('selected_row_value_changed', function (row) {
+        let rows = this.tableData.filter(x => x === row)
+        console.log(rows.length)
+        if (rows.length === 0) {
+          return
+        }
+        for (const key in ['name', 'postal_cd', 'address', 'phone', 'memo']) {
+          rows[0][key] = row[key]
+        }
+      })
+    },
     data () {
       return {
         columns: ['customer_id', 'name', 'postal_cd', 'address', 'phone', 'memo'],
-        tableData: [
-          {customer_id: 1, name: 'にしざわ', 'postal_cd': '381-0001', 'address': 'あのへん', 'phone': '12-3456-7890', 'memo': 'メモ1'},
-          {customer_id: 2, name: 'ひがしざわ', 'postal_cd': '381-0002', 'address': 'このへん', 'phone': '12-3456-7890', 'memo': 'メモ2'},
-          {customer_id: 3, name: 'きたざわ', 'postal_cd': '381-0003', 'address': 'そのへん', 'phone': '12-3456-7890', 'memo': 'メモ3'},
-          {customer_id: 4, name: 'みなみさわ', 'postal_cd': '381-0004', 'address': 'あっちらへん', 'phone': '12-3456-7890', 'memo': 'メモ4'}
-        ],
+        tableData: this.$store.state.customer_list,
         options: {},
-        selected_row: {customer_id: 0, name: '', '': '', 'phone': '', 'memo': ''}
+        selected_row: this.$store.state.selected_row
       }
     },
     methods: {
       row_click: function (source) {
-        this.selected_row = source.row
+        this.$store.state.selected_row = source.row
       }
     },
     components: {'customer-detail': CustomerDetail}
