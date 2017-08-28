@@ -17,14 +17,14 @@
         if (rows.length === 0) {
           return
         }
-        for (const key in ['name', 'postal_cd', 'address', 'phone', 'memo']) {
+        for (const key in ['name', 'postal_cd', 'prefecture', 'city', 'address1', 'phone', 'memo']) {
           rows[0][key] = row[key]
         }
       })
     },
     data () {
       return {
-        columns: ['customer_id', 'name', 'postal_cd', 'address', 'phone', 'memo'],
+        columns: ['customer_id', 'name', 'postal_cd', 'prefecture', 'city', 'address1', 'phone', 'memo'],
         tableData: this.$store.state.customer_list,
         options: {},
         selected_row: this.$store.state.selected_row

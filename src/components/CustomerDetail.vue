@@ -8,15 +8,23 @@
       </md-input-container>
       <md-input-container>
         <label>氏名</label>
-        <md-input @change="text_changed" v-model="selected_row.name"></md-input>
+        <md-input @change="name_changed" v-model="selected_row.name"></md-input>
       </md-input-container>
       <md-input-container>
         <label>〒</label>
-        <md-input v-model="selected_row.postal_cd" id="postal_cd"></md-input>
+        <md-input @change="postal_cd_changed" v-model="selected_row.postal_cd" id="postal_cd"></md-input>
+      </md-input-container>
+      <md-input-container>
+        <label>都道府県</label>
+        <md-input v-model="selected_row.prefecture" id="prefecture"></md-input>
+      </md-input-container>
+      <md-input-container>
+        <label>市区町村</label>
+        <md-input v-model="selected_row.city" id="city"></md-input>
       </md-input-container>
       <md-input-container>
         <label>住所</label>
-        <md-input v-model="selected_row.address" id="address"></md-input>
+        <md-input v-model="selected_row.address1" id="address1"></md-input>
       </md-input-container>
       <md-input-container>
         <label>電話番号</label>
@@ -34,8 +42,11 @@
   import { mapGetters } from 'vuex'
   export default {
     methods: {
-      text_changed (value) {
-        this.$store.commit('edit_customer', {value})
+      name_changed (value) {
+        this.$store.commit('edit_customer_name', {value})
+      },
+      postal_cd_changed (value) {
+        this.$store.commit('postal_cd_changed', {value})
       }
     },
     computed: {
