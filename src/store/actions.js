@@ -10,7 +10,7 @@ export const actions = {
       return
     }
     // 郵便番号APIをたたく。
-    axios.get(location.protocol + '//api.zipaddress.net/?zipcode=' + value)
+    return axios.get(location.protocol + '//api.zipaddress.net/?zipcode=' + value)
       .then(function (response) {
         context.commit('edit_customer_address', {data: response.data.data, zipcode: value})
       })
