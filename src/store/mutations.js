@@ -1,5 +1,4 @@
 export const STORAGE_KEY = 'customers-vuejs'
-import axios from 'axios'
 
 // for testing
 if (navigator.userAgent.indexOf('PhantomJS') > -1) {
@@ -43,28 +42,13 @@ export const mutations = {
    * @param state
    * @param addresses
    */
-  postal_cd_changed (state, { value }) {
-    value = value.replace(/-/, '')
-    if (value.length < 7) {
-      return
-    }
+  edit_customer_address (state, { data, zipcode }) {
     const filteredRows = state.customer_list.filter(x => x.customer_id === state.selected_row.customer_id)
     const row = filteredRows[0]
-    if (row.postal_cd === value) {
-      return
-    }
-    row.postal_cd = value.slice(0, 3) + '-' + value.slice(3, 7)
-    // 郵便番号APIをたたく。
-    axios.get(location.protocol + '//api.zipaddress.net/?zipcode=' + value)
-      .then(function (response) {
-        let data = response.data.data
-        row.prefecture = data.pref
-        row.city = data.city
-        row.address1 = data.town
-        state.selected_row = row  // こうしないと明細がrefreshしない...
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+    row.postal_cd = zipcode.slice(0, 3) + '-' + zipcode.slice(3, 7)
+    row.prefecture = data.pref
+    row.city = data.city
+    row.address1 = data.town
+    state.selected_row = row  // こうしないと明細がrefreshしない...
   }
 }

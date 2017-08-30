@@ -46,7 +46,7 @@
         this.$store.commit('edit_customer_name', {value})
       },
       postal_cd_changed (value) {
-        this.$store.commit('postal_cd_changed', {value})
+        this.$store.dispatch('customer_postal_cd_changed', {value})
       }
     },
     computed: {
