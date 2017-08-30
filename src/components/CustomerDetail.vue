@@ -24,7 +24,7 @@
       </md-input-container>
       <md-input-container>
         <label>住所</label>
-        <md-input v-model="selected_row.address1" id="address1"></md-input>
+        <md-input ref='address1' v-model="selected_row.address1" id="address1"></md-input>
       </md-input-container>
       <md-input-container>
         <label>電話番号</label>
@@ -47,6 +47,7 @@
       },
       postal_cd_changed (value) {
         this.$store.dispatch('customer_postal_cd_changed', {value})
+          .then(result => { if (!result) { return } this.$refs.address1.$el.focus() })
       }
     },
     computed: {
