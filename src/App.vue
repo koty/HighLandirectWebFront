@@ -3,6 +3,7 @@
     <md-toolbar>
       <h1 class="md-title">HighLandirect</h1>
       <md-button class="md-raised">印刷！</md-button>
+      <span>ソース：<a target="_blank" href="https://github.com/koty/HighLandirectWebFront">https://github.com/koty/HighLandirectWebFront</a></span>
     </md-toolbar>
     <md-button><router-link to="/">top</router-link></md-button>
     <md-button><router-link to="/customers">顧客一覧</router-link></md-button>
