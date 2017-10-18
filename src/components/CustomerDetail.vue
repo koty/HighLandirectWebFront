@@ -8,7 +8,7 @@
       </md-input-container>
       <md-input-container>
         <label>氏名</label>
-        <md-input v-model.lazy="name"></md-input>
+        <md-input v-model.lazy="selected_row.name"></md-input>
       </md-input-container>
       <md-input-container>
         <label>〒</label>
