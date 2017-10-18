@@ -15,7 +15,11 @@ export const actions = {
     // 郵便番号APIをたたく。
     return axios.get(location.protocol + '//api.zipaddress.net/?zipcode=' + value)
       .then(function (response) {
-        context.commit('edit_customer_address', {data: response.data.data, zipcode: value})
+        context.commit('edit_customer_address', {
+          row: context.state.selected_row,
+          data: response.data.data,
+          zipcode: value
+        })
         return new Promise((resolve, reject) => {
           resolve(true)
         })
@@ -25,13 +29,13 @@ export const actions = {
       })
   },
   selected_customer_changed (context, { row }) {
-    const customer_ref = db.ref('customer_list/' + row.key)
-    const promise = new Promise((resolve, reject) => {
-      customer_ref.on('value', function (snapshot) {
+    return db.ref('customer_list/' + row.key)
+      .once('value')
+      .then(function (snapshot) {
         const val = snapshot.val()
-        resolve(val)
+        return new Promise((resolve, reject) => {
+          resolve(val)
+        })
       })
-    })
-    return promise
   }
 }

@@ -18,12 +18,12 @@ const mutations = {
   set_address1 (state, value) { state.address1 = value },
   set_phone (state, value) { state.phone = value },
   set_memo (state, value) { state.memo = value },
-  edit_customer_address (state, { data, zipcode }) {
-    state.postal_cd = zipcode.slice(0, 3) + '-' + zipcode.slice(3, 7)
-    state.prefecture = data.pref
-    state.city = data.city
-    state.address1 = data.town
-    // state.selected_row = row  // こうしないと明細がrefreshしない...
+  edit_customer_address (state, { row, data, zipcode }) {
+    row.postal_cd = zipcode.slice(0, 3) + '-' + zipcode.slice(3, 7)
+    row.prefecture = data.pref
+    row.city = data.city
+    row.address1 = data.town
+    state.selected_row = row  // こうしないと明細がrefreshしない...
   }
 }
 
