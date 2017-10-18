@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { db } from './firebase'
 
 export const actions = {
   /**
@@ -22,23 +23,15 @@ export const actions = {
       .catch(function (error) {
         console.log(error)
       })
+  },
+  selected_customer_changed (context, { row }) {
+    const customer_ref = db.ref('customer_list/' + row.key)
+    const promise = new Promise((resolve, reject) => {
+      customer_ref.on('value', function (snapshot) {
+        const val = snapshot.val()
+        resolve(val)
+      })
+    })
+    return promise
   }
 }
-
-/*
-import { firebaseAction } from 'vuexfire'
-
-const set_customer_list_ref = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
-  // this will unbind any previously bound ref to 'todos'
-  bindFirebaseRef('customer_list_ref', ref)
-  // you can unbind it easily too
-  unbindFirebaseRef('customer_list_ref')
-})
-
-const set_order_list_ref = firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
-  // this will unbind any previously bound ref to 'todos'
-  bindFirebaseRef('order_list_ref', ref)
-  // you can unbind it easily too
-  unbindFirebaseRef('order_list_ref')
-})
-*/

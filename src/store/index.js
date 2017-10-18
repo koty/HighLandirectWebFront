@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { actions } from './actions'
+import { state } from './mutations'
 // import plugins from './plugins'
 import customer from './modules/customer'
 import order from './modules/order'
@@ -13,6 +14,7 @@ const getters = {
 }
 
 export default new Vuex.Store({
+  state,
   actions,
   modules: {customer, order},
   getters

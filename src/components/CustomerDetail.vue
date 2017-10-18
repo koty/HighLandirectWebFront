@@ -4,7 +4,7 @@
     <form>
       <md-input-container>
         <label>ID</label>
-        <md-input class="s6" readonly v-model="customer_id"></md-input>
+        <md-input class="s6" readonly v-model="selected_row.customer_id"></md-input>
       </md-input-container>
       <md-input-container>
         <label>氏名</label>
@@ -12,27 +12,27 @@
       </md-input-container>
       <md-input-container>
         <label>〒</label>
-        <md-input @change="postal_cd_changed" v-model.lazy="postal_cd" id="postal_cd"></md-input>
+        <md-input @change="postal_cd_changed" v-model.lazy="selected_row.postal_cd" id="postal_cd"></md-input>
       </md-input-container>
       <md-input-container>
         <label>都道府県</label>
-        <md-input v-model.lazy="prefecture" id="prefecture"></md-input>
+        <md-input v-model.lazy="selected_row.prefecture" id="prefecture"></md-input>
       </md-input-container>
       <md-input-container>
         <label>市区町村</label>
-        <md-input v-model.lazy="city" id="city"></md-input>
+        <md-input v-model.lazy="selected_row.city" id="city"></md-input>
       </md-input-container>
       <md-input-container>
         <label>住所</label>
-        <md-input ref='address1' v-model.lazy="address1" id="address1"></md-input>
+        <md-input ref='address1' v-model.lazy="selected_row.address1" id="address1"></md-input>
       </md-input-container>
       <md-input-container>
         <label>電話番号</label>
-        <md-input v-model.lazy="phone" id="phone"></md-input>
+        <md-input v-model.lazy="selected_row.phone" id="phone"></md-input>
       </md-input-container>
       <md-input-container>
         <label>備考</label>
-        <md-textarea rows="3" v-model.lazy="memo"></md-textarea>
+        <md-textarea rows="3" v-model.lazy="selected_row.memo"></md-textarea>
       </md-input-container>
 
       <md-button class="md-raised" @click="add">登録</md-button>
@@ -85,7 +85,8 @@
     },
     computed: {
       ...mapGetters([
-        'customer_list'
+        'customer_list',
+        'selected_row'
       ])
     }
   }

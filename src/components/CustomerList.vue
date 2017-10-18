@@ -16,19 +16,10 @@
       customer_list: customer_list_ref
     },
     created: function () {
-      this.$on('selected_row_value_changed', function (row) {
-        let rows = this.tableData.filter(x => x === row)
-        console.log(rows.length)
-        if (rows.length === 0) {
-          return
-        }
-        for (const key in ['name', 'postal_cd', 'prefecture', 'city', 'address1', 'phone', 'memo']) {
-          rows[0][key] = row[key]
-        }
-      })
       customer_list_ref.on('value', function (snapshot) {
         const val = snapshot.val()
         for (let key in val) {
+          val[key].key = key
           customer_list.push(val[key])
         }
       })
@@ -46,7 +37,13 @@
     },
     methods: {
       row_click: function (source) {
-        this.$store.state.selected_row = source.row
+        const row = source.row
+        const _this = this
+        this.$store.dispatch('selected_customer_changed', {row})
+          .then(function (data) {
+            _this.$store.state.selected_row = data
+          }
+        )
       }
     },
     components: {'customer-detail': CustomerDetail}
