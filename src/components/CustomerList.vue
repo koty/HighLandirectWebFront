@@ -8,8 +8,13 @@
 
 <script>
   import CustomerDetail from '@/components/CustomerDetail'
-  // import { mapGetters } from 'vuex'
+  import Vuex from 'vuex'
+  import { customer_list_ref } from '../store/firebase'
+  const customer_list = []
   export default {
+    firebase: {
+      customer_list: customer_list_ref
+    },
     created: function () {
       this.$on('selected_row_value_changed', function (row) {
         let rows = this.tableData.filter(x => x === row)
@@ -21,11 +26,20 @@
           rows[0][key] = row[key]
         }
       })
+      customer_list_ref.on('value', function (snapshot) {
+        const val = snapshot.val()
+        for (let key in val) {
+          customer_list.push(val[key])
+        }
+      })
+    },
+    computed: {
+      ...Vuex.mapState(['customer_list'])
     },
     data () {
       return {
         columns: ['customer_id', 'name', 'postal_cd', 'prefecture', 'city', 'address1', 'phone', 'memo'],
-        tableData: this.$store.state.customer_list,
+        tableData: customer_list,
         options: {},
         selected_row: this.$store.state.selected_row
       }
